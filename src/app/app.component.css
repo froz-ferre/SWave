@@ -1,0 +1,11 @@
+.wrapper {
+    display: flex;
+}
+
+app-menu {
+    flex: 2;
+}
+
+router-outlet {
+    flex: 10;
+}
