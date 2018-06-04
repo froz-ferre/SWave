@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 @NgModule({
   imports: [
     MatButtonModule,
@@ -19,7 +21,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatAutocompleteModule,
     MatSlideToggleModule,
     MatFormFieldModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule
   ],
   exports: [
     MatButtonModule,
@@ -31,7 +34,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatAutocompleteModule,
     MatSlideToggleModule,
     MatFormFieldModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule
   ],
   declarations: []
 })
