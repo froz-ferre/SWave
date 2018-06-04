@@ -9,6 +9,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatSlideToggleModule,
     MatFormFieldModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatIconModule
   ],
   exports: [
     MatButtonModule,
@@ -35,7 +37,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatSlideToggleModule,
     MatFormFieldModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatIconModule
   ],
   declarations: []
 })

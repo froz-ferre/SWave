@@ -4,5 +4,21 @@
   bottom: 0;
   left: 0;
   right: 0;
-  width: 400px;
+}
+
+
+
+@media screen and (min-width : 320px) and (max-width : 480px) {
+  /* стили */
+  mat-sidenav {
+    width: 100%;
+    background:yellowgreen;
+  }
+}
+
+@media screen and (min-width : 481px) {
+  mat-sidenav {
+    width: 300px;
+    background: rgba(0, 100, 255, .9);
+  }
 }
