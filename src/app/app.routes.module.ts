@@ -11,10 +11,14 @@ export const routes: Routes = [
         path: 'dashboard',
         loadChildren: './core/dashboard/dashboard.module#DashboardModule',
     },
-  /*  {
-        path: '**',
+    {
+        path: '404',
         component: NotFoundComponent
-    }  */
+    },
+    {
+        path: '**',
+        redirectTo: '/404'
+    }
 ];
 
 @NgModule({
