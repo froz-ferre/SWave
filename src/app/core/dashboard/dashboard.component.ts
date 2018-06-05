@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LastFmService } from '../services/last-fm.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  api;
+
+  constructor(protected lfs: LastFmService) {
+   }
 
   ngOnInit() {
+    this.getChartArtists();
+  }
+
+  getChartArtists() {
+    this.lfs.getChartArtists().subscribe(data => this.api = data);    
   }
 
 }
