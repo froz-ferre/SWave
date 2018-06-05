@@ -9,7 +9,7 @@ export const routes: Routes = [
         pathMatch: 'full' },
     {
         path: 'dashboard',
-        loadChildren: './core/dashboard/dashboard.module#DashboardModule',
+        loadChildren: './core/core.module#CoreModule',
     },
     {
         path: '404',
