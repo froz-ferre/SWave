@@ -39,7 +39,7 @@ export class Artist {
     name = name.includes(' ') ?  name.split(' ').join('+') : name;
     const lf = this._injector.get(LastFmService); // Arctic Monkeys => Arctic+Monkeys
     const url = `${lf.lastFmUrl}?method=artist.gettoptracks&artist=${name}&${lf.api_key}&format=json`;
-    return this._injector.get(HttpClient).get(url).pipe(map(data => data.slice(0,4)));
+    return this._injector.get(HttpClient).get(url); // .pipe(map(data => data.slice(0,4))
   }
 }
 
