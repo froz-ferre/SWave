@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LastFmService, Artist } from '../services/last-fm.service';
+import { LastFmService } from '../services/last-fm.service';
 
 
 @Component({
@@ -16,11 +16,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getChartArtists();
-    const art = new Artist('cher', 'cher');
+    console.log(this.lfs.artists);
   }
 
   getChartArtists() {
-    this.lfs.getArtistInfo().subscribe(data => this.api = data);
+    this.lfs.getChartArtists().subscribe(data => {
+      console.log(data);
+    });
   }
 
 }
