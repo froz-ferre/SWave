@@ -9,7 +9,7 @@ export class Artist {
     constructor(name: string, img: string, private _injector?: Injector) {
       this.name = name;
       this.img = img;
-      this.getTracks(name).subscribe(track => console.log(track + ' track ;D') /*this.tracks.push(track)*/);
+      this.getTracks(name).subscribe(track => console.log(track) /*this.tracks.push(track)*/);
     }
   
     getTracks(name) {
