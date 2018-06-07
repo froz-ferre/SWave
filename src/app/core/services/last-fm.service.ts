@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { Artist } from './../model/dashboard.model';
+import { Artist, Track } from './../model/dashboard.model';
 import { CoreModule } from '../core.module';
 
 @Injectable({
@@ -14,7 +14,14 @@ export class LastFmService {
   lastFmUrl = 'http://ws.audioscrobbler.com/2.0/';
   api_key = 'api_key=32a63d8e1c209d6f83211a00f8cc838e';
 
+  artists: Artist[] = [];
+
   constructor(protected _http: HttpClient) { }
+
+  validateName(name: string) {
+    // Arctic Monkeys => Arctic+Monkeys
+    return name = name.includes(' ') ?  name.split(' ').join('+') : name;    
+  }
 
   getChartArtists(): Observable<any> {
     return this._http.get(`${this.lastFmUrl}?method=chart.gettopartists&${this.api_key}&format=json`)
@@ -25,7 +32,7 @@ export class LastFmService {
           const temp = new Artist(
               element.name,
               element.image[2]['#text'],
-              this
+              Array<Track> ()
             );
             Artist.chartArtists.push(temp);
         });
@@ -33,14 +40,14 @@ export class LastFmService {
     );
   }
 
-  getArtistInfo(): Observable<any> {
-    return this._http.get(`${this.lastFmUrl}?method=artist.getinfo&artist=Arctic+Monkeys&${this.api_key}&format=json`);
+  getArtistInfo(name: string): Observable<any> {
+    return this._http.get(`${this.lastFmUrl}?method=artist.getinfo&artist=${this.validateName(name)}&${this.api_key}&format=json`);
   }
 
   getTracks(name: string) {
-    name = name.includes(' ') ?  name.split(' ').join('+') : name; // Arctic Monkeys => Arctic+Monkeys
-    const url = `${this.lastFmUrl}?method=artist.gettoptracks&artist=${name}&${this.api_key}&format=json`;
-    return this._http.get(url);
+    const url = `${this.lastFmUrl}?method=artist.gettoptracks&artist=${this.validateName(name)}&${this.api_key}&format=json`;
+    return this._http.get(url)
+    .pipe(map(res => res['toptracks']['track'][0]));
   }
 
 }

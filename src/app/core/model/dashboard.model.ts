@@ -5,11 +5,12 @@ export class Artist {
 
     private name: string;
     private img: string;
-    private tracks: any;
+    public tracks: any;
 
-    constructor(name: string, img: string, protected _lastFmService: LastFmService) {
+    constructor(name: string, img: string, tracks) {
       this.name = name;
       this.img = img;
+      this.tracks = tracks;
     //   this.getTracks(name).subscribe(track => console.log(track) /*this.tracks.push(track)*/);
     }
 
@@ -17,10 +18,12 @@ export class Artist {
     //     this._lastFmService.getChartArtists();
     // }
 
+    getName() {return this.name;}
+
     getTracks(name) {
       /*  */
-      return this._lastFmService.getTracks(name)
-      .subscribe(res => console.log(res));
+      // return this._lastFmService.getTracks(name)
+      // .subscribe(res => console.log(res));
       // const lf = this._injector.get(LastFmService);
       // const url = `${lf.lastFmUrl}?method=artist.gettoptracks&artist=${name}&${lf.api_key}&format=json`;
       // tslint:disable-next-line:max-line-length
@@ -29,6 +32,9 @@ export class Artist {
     }
   }
 
-  export class Track {}
+  export class Track {
+    private name;
+    constructor(name) {this.name = name;}
+  }
 
   export class Album {}
