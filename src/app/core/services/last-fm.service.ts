@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, take, timeInterval } from 'rxjs/operators';
 import { Artist, Track } from './../model/dashboard.model';
 import { CoreModule } from '../core.module';
 
@@ -15,16 +15,23 @@ export class LastFmService {
   api_key = 'api_key=32a63d8e1c209d6f83211a00f8cc838e';
 
   artists: Artist[] = [];
+  private str$  = new Subject<Artist[]>();
 
-  constructor(protected _http: HttpClient) { }
+  constructor(protected _http: HttpClient) {
+
+   }
+
+   getData() {
+    //  this.str$;
+   }
 
   validateName(name: string) {
     // Arctic Monkeys => Arctic+Monkeys
     return name = name.includes(' ') ?  name.split(' ').join('+') : name;    
   }
 
-  getChartArtists(): Observable<any> {
-    return this._http.get(`${this.lastFmUrl}?method=chart.gettopartists&${this.api_key}&format=json`)
+  getChartArtists() {
+    const artistStram$: Observable<any> = this._http.get(`${this.lastFmUrl}?method=chart.gettopartists&${this.api_key}&format=json`)
     .pipe(
       map(res => res['artists']['artist']),
       map(res => {
@@ -32,12 +39,12 @@ export class LastFmService {
           const temp = new Artist(
               element.name,
               element.image[2]['#text'],
-              Array<Track> ()
             );
-            Artist.chartArtists.push(temp);
+            this.artists.push(temp);
         });
       })
     );
+    return artistStram$.subscribe();
   }
 
   getArtistInfo(name: string): Observable<any> {

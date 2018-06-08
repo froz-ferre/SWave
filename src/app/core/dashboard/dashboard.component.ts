@@ -11,28 +11,20 @@ import { Artist } from '../model/dashboard.model';
 export class DashboardComponent implements OnInit {
 
   api: Artist[];
-  track;
 
-  constructor(protected lfs: LastFmService) {
-   }
+  constructor(protected lfs: LastFmService) {   }
 
   ngOnInit() {
     this.getChartArtists();
-    Artist.chartArtists.forEach((el: Artist) => {
-      this.lfs.getTracks(el.getName()).subscribe(res => el.tracks.push(res));
-    })
-    this.getTrack(Artist.chartArtists.pop().getName);
-    console.log(Artist.chartArtists);
+    this.api = this.lfs.artists;
   }
 
   getChartArtists() {
-    this.lfs.getChartArtists().subscribe(data => {
-      this.api = data;
-    });
+    this.lfs.getChartArtists();
   }
-  
+
   getTrack(name) {
-    this.lfs.getTracks(name).subscribe(tr => this.track = tr);
+    this.lfs.getTracks(name).subscribe(tr => this.api[0].tracks.push(tr));
   }
 
 }
