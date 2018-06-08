@@ -7,9 +7,10 @@ export class Artist {
     private img: string;
     public tracks: any;
 
-    constructor(name: string, img: string) {
+    constructor(name: string, img: string, tracks) {
       this.name = name;
       this.img = img;
+      this.tracks = tracks;
     //   this.getTracks(name).subscribe(track => console.log(track) /*this.tracks.push(track)*/);
     }
 

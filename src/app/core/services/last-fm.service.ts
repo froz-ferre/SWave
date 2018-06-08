@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { map, take, timeInterval } from 'rxjs/operators';
+import { map, take, timeInterval, filter } from 'rxjs/operators';
 import { Artist, Track } from './../model/dashboard.model';
 import { CoreModule } from '../core.module';
 
@@ -27,7 +27,7 @@ export class LastFmService {
 
   validateName(name: string) {
     // Arctic Monkeys => Arctic+Monkeys
-    return name = name.includes(' ') ?  name.split(' ').join('+') : name;    
+    return name = name.includes(' ') ?  name.split(' ').join('+') : name;
   }
 
   getChartArtists() {
@@ -38,7 +38,10 @@ export class LastFmService {
         res.forEach(element => {
           const temp = new Artist(
               element.name,
-              element.image[2]['#text'],
+              element.image[3]['#text'],
+              this.getTracks(element.name).pipe(
+                map(arr => arr.slice(0, 4))
+              )
             );
             this.artists.push(temp);
         });
@@ -54,7 +57,9 @@ export class LastFmService {
   getTracks(name: string) {
     const url = `${this.lastFmUrl}?method=artist.gettoptracks&artist=${this.validateName(name)}&${this.api_key}&format=json`;
     return this._http.get(url)
-    .pipe(map(res => res['toptracks']['track'][0]));
+    .pipe(
+      map(res => res['toptracks']['track'])
+    );
   }
 
 }
