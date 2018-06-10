@@ -1,11 +1,26 @@
 .wrapper {
     display: flex;
+    height: 100%;
 }
 
 app-menu {
-    flex: 2;
+    min-width: 20%;
+}
+
+.content {
+    background: #232323;
+    overflow-y: scroll;
+}
+
+.content -webkit-scrollbar {
+    width: 0;
+}
+
+.content -webkit-scrollbar-thumb {
+    background: #fff;
 }
 
 router-outlet {
-    flex: 10;
+    max-height: 100%;
+    width: 80%;
 }
