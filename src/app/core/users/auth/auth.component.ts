@@ -9,36 +9,12 @@ import { Router } from '@angular/router';
 })
 export class AuthComponent implements OnInit {
 
-  constructor(public authService: AuthService,
+  constructor(public _auth: AuthService,
               private router: Router) { }
 
   ngOnInit() {
   }
 
   // social login
-
-  signInWithGithub(): void {
-    this.authService.githubLogin()
-    .then(() => this.afterSignIn())
-  }
-
-  signInWithGoogle(): void {
-    this.authService.googleLogin()
-    .then(() => this.afterSignIn())
-  }
-
-  signInWithFacebook(): void {
-    this.authService.facebookLogin()
-    .then(() => this.afterSignIn())
-  }
-
-  signInWithEmail(): void {
-    this.authService.emailLogin()
-    .then(() => this.afterSignIn())
-  }
-
-  afterSignIn() {
-    
-  }
 
 }

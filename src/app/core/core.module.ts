@@ -11,17 +11,31 @@ import { SearchComponent } from './dashboard/search/search.component';
 import { AuthComponent } from './users/auth/auth.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
+import { AuthService } from './services/auth.service';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'dashboard'
+  },
+  {
+    path: 'dashboard',
     component: DashboardComponent
-  }
+},
+  {
+    path: 'auth',
+    component: UserProfileComponent
+},
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
   declarations: [
     DashboardComponent,
@@ -31,6 +45,9 @@ const routes: Routes = [
     SearchComponent,
     AuthComponent,
     UserProfileComponent
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class CoreModule { }

@@ -5,11 +5,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: '/dashboard',
-        pathMatch: 'full' },
-    {
-        path: 'dashboard',
-        loadChildren: './core/core.module#CoreModule',
+        loadChildren: './core/core.module#CoreModule'
     },
     {
         path: '404',
