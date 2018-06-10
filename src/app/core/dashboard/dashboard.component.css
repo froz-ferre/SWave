@@ -1,11 +1,14 @@
 .wrapper {
     display: flex;
-    width: 100%;   
-    min-width: 100%;
     flex-direction: column;
 }
 
 .row {
     display: flex;
     flex-direction: row;
+}
+
+.row1 {
+    flex-wrap: wrap;
+    align-items: center;
 }
