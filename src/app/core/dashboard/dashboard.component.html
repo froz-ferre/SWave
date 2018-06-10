@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <h1>{{api[5].name}}</h1>
     <img src="{{api[5].img}}" alt="">
     <div *ngFor="let track of api[5].tracks | async">
@@ -6,4 +6,22 @@
         <img src="{{track.image[1]['#text']}}" alt="">
     </div>
     <p> tracks {{ api[1].tracks | async | json }}</p>
+</div> -->
+<div class="wrapper">
+    <div class="row">
+        <app-search></app-search>
+    </div>
+    <div class="row">
+        <app-top-artist></app-top-artist>
+        <app-top-artis-tracks></app-top-artis-tracks>        
+    </div>
+    <div class="row">
+        <app-chart></app-chart>
+    </div>
+    <div class="row">
+        <app-chart></app-chart>    
+    </div>
+    <div class="row">
+        <app-chart></app-chart>    
+    </div>
 </div>

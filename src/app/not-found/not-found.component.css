@@ -1,0 +1,18 @@
+.wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.wrapper h1 {
+    font-weight: 400;
+}
+
+.err {
+    display: flex;
+    align-items: center;
+    font-size: 27em;
+    font-weight: 100;
+    color: #07eef2;
+    justify-content: center;
+}

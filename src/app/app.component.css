@@ -10,14 +10,7 @@ app-menu {
 .content {
     background: #232323;
     overflow-y: scroll;
-}
-
-.content -webkit-scrollbar {
-    width: 0;
-}
-
-.content -webkit-scrollbar-thumb {
-    background: #fff;
+    width: 80%;
 }
 
 router-outlet {

@@ -5,6 +5,7 @@
 */
 
 nav {
+  padding-top: 10px;  
   height: 100%;
   background: #454747;
   margin-right: 20px;
@@ -39,4 +40,11 @@ ul li a {
 ul li a:hover {
   color: #07eef2;
   background: rgba(0, 0, 0, .3);
+}
+
+.active_menu {  
+  font-weight: 600;
+  color: #07eef2 !important;
+  background: rgba(0, 0, 0, .3);
+
 }

@@ -7,7 +7,6 @@
     - blue #07eef2 rgb(7, 238, 242)
 */
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* Fonts */
 @import url('https://fonts.googleapis.com/css?family=Rajdhani:300,400,700');
 
@@ -28,5 +27,6 @@ html, body {
     color: #fff;
     font-family: 'Rajdhani', sans-serif;
     font-weight: 500;
+    overflow: hidden;
 }
 
