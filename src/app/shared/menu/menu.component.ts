@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +16,7 @@ export class MenuComponent implements OnInit {
     this.sidenav.close();
   }
 
-  constructor() { }
+  constructor(protected _router: Router) { }
 
   ngOnInit() {
   }

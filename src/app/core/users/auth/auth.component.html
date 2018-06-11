@@ -1,3 +1,55 @@
-<p>
-  auth works!
-</p>
+<div *ngIf="_auth.user | async; then authenticated else guest">
+  <!-- template will replace this div -->
+</div>
+
+<!-- *ngIf="(_auth.user | async) || {} as user" -->
+
+<!-- User NOT logged in -->
+<ng-template #guest >
+
+  <form [formGroup]="signupForm" *ngIf="!_auth.user.uid" (ngSubmit)="signup()">
+      
+    <h3>New User Signup</h3>
+  
+    <label for="email">Email</label>
+    <input type="email" formControlName="email">
+    
+
+    <div *ngIf="email.invalid && email.dirty">
+        Please, enter require email address!
+    </div>
+  
+    <label for="password">Password</label>
+    <input type="password" formControlName="password" required>
+  
+    <div *ngIf="password.invalid && password.touched" >
+      Password must be between 6 and 24 chars and have at least one number 
+    </div>
+  
+    <button type="submit" [disabled]="!signupForm.valid">Submit</button>
+  
+  
+  </form>
+
+<button (click)="_auth.googleLogin()">
+  <i class="fa fa-google"></i> Connect Google
+</button>
+<button (click)="_auth.facebookLogin()">
+  <i class="fa fa-google"></i> Connect Facebook
+</button>
+<button (click)="_auth.githubLogin()">
+  <i class="fa fa-google"></i> Connect Github
+</button>
+
+</ng-template>
+
+
+<!-- User logged in -->
+<ng-template #authenticated>
+<div *ngIf="_auth.user | async as user">
+  <h3>Already authorized as {{ user.displayName }}</h3>
+  <img  [src]="user.photoURL">
+  <p>UID: {{ user.uid }}</p>
+  <button (click)="_auth.signOut()">Logout</button>
+</div>
+</ng-template>

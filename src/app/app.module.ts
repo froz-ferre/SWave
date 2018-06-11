@@ -10,6 +10,8 @@ import { SharedModule } from './shared/shared.module';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+import { RouterModule, Routes } from '@angular/router';
+
 export const firebaseConfig = {
   apiKey: 'AIzaSyD04J1HQmN6UzvxJKtcqmBrNHuX6x0hvCQ',
     authDomain: 'samewave-3b523.firebaseapp.com',

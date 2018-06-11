@@ -5,6 +5,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
 
 import { Observable, of } from 'rxjs';
 import { switchMap} from 'rxjs/operators';
@@ -14,6 +15,8 @@ interface User {
   email: string;
   photoURL?: string;
   displayName?: string;
+  customName?: string;
+  collections?: any;
 }
 
 
@@ -54,8 +57,12 @@ export class AuthService {
     return this.oAuthLogin(provider);
   }
 
-  emailLogin() {
-
+  emailLogin(email: string, password: string) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        return this.setUserDoc(user); // create initial user document
+      })
+      .catch(error => this.handleError(error) );
   }
 
   private oAuthLogin(provider) {
@@ -64,6 +71,24 @@ export class AuthService {
         this.updateUserData(credential.user);
       });
   }
+
+    // If error, console log and notify user
+    private handleError(error) {
+      console.error(error);
+    }
+
+    // Sets user data to firestore after succesful login
+    private setUserDoc(user) {
+
+      const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+
+      const data: User = {
+        uid: user.uid,
+        email: user.email || null,
+        photoURL: 'https://goo.gl/Fz9nrQ'
+      };
+      return userRef.set(data);
+    }
 
 
   private updateUserData(user) {
@@ -81,7 +106,6 @@ export class AuthService {
     return userRef.set(data, { merge: true });
 
   }
-
 
   signOut() {
     this.afAuth.auth.signOut().then(() => {

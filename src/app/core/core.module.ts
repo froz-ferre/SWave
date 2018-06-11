@@ -15,6 +15,8 @@ import { AuthService } from './services/auth.service';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 const routes: Routes = [
   {
     path: '',
@@ -26,7 +28,7 @@ const routes: Routes = [
 },
   {
     path: 'auth',
-    component: UserProfileComponent
+    component: AuthComponent
 },
 ];
 
@@ -35,7 +37,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DashboardComponent,
