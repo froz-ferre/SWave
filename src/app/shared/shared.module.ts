@@ -10,6 +10,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ChatComponent } from './chat/chat.component';
 import { RouterModule } from '@angular/router';
+import { ChatService } from './services/chat.service';
 
 @NgModule({
   imports: [
@@ -20,6 +21,9 @@ import { RouterModule } from '@angular/router';
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule // imports firebase/storage only needed for storage features
+  ],
+  providers: [
+    ChatService
   ],
   declarations: [
     MenuComponent,

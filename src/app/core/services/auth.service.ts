@@ -58,10 +58,15 @@ export class AuthService {
   }
 
   emailLogin(email: string, password: string) {
+    // TODO: refactor this method
+    // email and password is valid
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(user => {
-        return this.setUserDoc(user); // create initial user document
-      })
+    .then((credential) => {
+      this.updateUserData(credential.user);
+     })
+      // .then(user => {
+      //   return this.setUserDoc(user.uid); // create initial user document
+      // })
       .catch(error => this.handleError(error) );
   }
 
@@ -100,7 +105,7 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      photoURL: user.photoURL
+      photoURL: user.photoURL || 'https://avatars3.githubusercontent.com/u/12459942?s=460&v=4'
     };
 
     return userRef.set(data, { merge: true });

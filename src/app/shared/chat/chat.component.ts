@@ -9,13 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class ChatComponent implements OnInit {
 
   constructor(protected _chatService: ChatService) {
-    this._chatService.someMeth().subscribe(
-      _ => console.log(_)
-    );
   }
 
   ngOnInit() {
-
+    this._chatService.someMeth().subscribe(
+      res => console.log(res)
+    );
   }
 
 }

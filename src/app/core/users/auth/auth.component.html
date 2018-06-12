@@ -26,7 +26,7 @@
       Password must be between 6 and 24 chars and have at least one number 
     </div>
   
-    <button type="submit" [disabled]="!signupForm.valid">Submit</button>
+    <button type="submit" (click)="signup()">Submit</button>
   
   
   </form>
