@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRoutingModule } from './app.routes.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SharedModule } from './shared/shared.module';
+// import { SharedModule } from './shared/shared.module';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { RouterModule, Routes } from '@angular/router';
+
+import { CoreModule } from './core/core.module';
 
 export const firebaseConfig = {
     apiKey: 'AIzaSyD04J1HQmN6UzvxJKtcqmBrNHuX6x0hvCQ',
@@ -27,10 +29,12 @@ export const firebaseConfig = {
     NotFoundComponent
   ],
   imports: [
+    CoreModule,
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    SharedModule,
+    // SharedModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule
   ],

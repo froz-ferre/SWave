@@ -16,11 +16,14 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
+import { ChatComponent } from '../shared/chat/chat.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard'
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
   },
   {
     path: 'dashboard',
@@ -30,6 +33,10 @@ const routes: Routes = [
     path: 'auth',
     component: AuthComponent
   },
+  {
+    path: 'direct',
+    component: ChatComponent
+  }
 ];
 
 @NgModule({
@@ -38,7 +45,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [
     DashboardComponent,
@@ -51,6 +59,9 @@ const routes: Routes = [
   ],
   providers: [
     AuthService
+  ],
+  exports: [
+    SharedModule
   ]
 })
 export class CoreModule { }
