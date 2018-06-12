@@ -74,6 +74,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
         this.updateUserData(credential.user);
+        this.router.navigate(['/dashboard']);
       });
   }
 
@@ -90,7 +91,7 @@ export class AuthService {
       const data: User = {
         uid: user.uid,
         email: user.email || null,
-        photoURL: 'https://goo.gl/Fz9nrQ'
+        photoURL: 'https://avatars3.githubusercontent.com/u/12459942?s=460&v=4'
       };
       return userRef.set(data);
     }

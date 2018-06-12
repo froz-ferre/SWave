@@ -43,7 +43,7 @@ ul li a:hover {
   background: rgba(0, 0, 0, .3);
 }
 
-.active_menu {  
+.active{  
   font-weight: 600;
   color: #07eef2 !important;
   background: rgba(0, 0, 0, .3);
