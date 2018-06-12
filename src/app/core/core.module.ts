@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent
-},
+  },
 ];
 
 @NgModule({

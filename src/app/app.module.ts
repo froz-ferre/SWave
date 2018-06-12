@@ -13,7 +13,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { RouterModule, Routes } from '@angular/router';
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyD04J1HQmN6UzvxJKtcqmBrNHuX6x0hvCQ',
+    apiKey: 'AIzaSyD04J1HQmN6UzvxJKtcqmBrNHuX6x0hvCQ',
     authDomain: 'samewave-3b523.firebaseapp.com',
     databaseURL: 'https://samewave-3b523.firebaseio.com',
     projectId: 'samewave-3b523',
@@ -34,9 +34,7 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule
   ],
-  exports: [
-    SharedModule
-  ],
+  exports: [ ],
   providers: [],
   bootstrap: [AppComponent]
 })

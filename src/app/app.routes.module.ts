@@ -7,6 +7,10 @@ export const routes: Routes = [
         path: '',
         loadChildren: './core/core.module#CoreModule'
     },
+    // {
+    //     path: 'direct',
+    //     component: ChatComponent
+    // },
     {
         path: '404',
         component: NotFoundComponent

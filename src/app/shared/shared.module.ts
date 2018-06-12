@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material.module';
 import { MenuComponent } from './menu/menu.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
-
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   imports: [
@@ -21,11 +21,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   ],
   declarations: [
     MenuComponent,
-    MenuComponent
+    ChatComponent
   ],
   exports: [
     MaterialModule,
     MenuComponent,
+    ChatComponent,
     BrowserAnimationsModule
   ]
 })
