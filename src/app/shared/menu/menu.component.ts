@@ -1,3 +1,4 @@
+import { AuthService } from './../../core/services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
@@ -16,7 +17,8 @@ export class MenuComponent implements OnInit {
     this.sidenav.close();
   }
 
-  constructor(protected _router: Router) { }
+  constructor(protected _router: Router,
+              private _as: AuthService) { }
 
   ngOnInit() {
   }

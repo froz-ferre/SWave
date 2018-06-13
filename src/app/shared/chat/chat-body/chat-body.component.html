@@ -1,3 +1,8 @@
-<p>
-  chat-body works!
-</p>
+<div *ngFor="let msg of messages">
+  <p><img src="{{msg.sender.photoUrl}}" alt="" style="width: 50px; border-radius: 50%;"><span>{{msg.sender.displayName || msg.sender.email}}</span></p>
+  <p><span>[{{msg.createdAt.seconds | date:'shortTime'}}]</span> {{msg.message}}</p>
+</div>
+<div>
+  <input type="text" #text>
+  <button (click)="sendMsg(text.value)">Send</button>
+</div>

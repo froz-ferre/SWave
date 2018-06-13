@@ -19,6 +19,7 @@ export class ChatService {
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore) {
+    this.getAuth().subscribe( auth => this.auth = auth);
   }
 
   // someMeth() {
@@ -32,5 +33,22 @@ export class ChatService {
 
     getUsers() {
       return this.afs.collection('users').valueChanges();
+    }
+
+    getMessages(thread: string) {
+      return this.afs.collection(`conversations`).doc(thread).collection('messages').valueChanges();
+    }
+
+    sendMessage(text, thread) {
+      this.afs.collection('conversations').doc(thread).collection('messages').add({
+        createdAt: Date.now(),
+        message: text,
+        sender: {
+          displayName: this.auth.displayName || null,
+          email: this.auth.email || null,
+          photoURL: this.auth.photoURL,
+          uid: this.auth.uid
+        }
+      });
     }
 }
