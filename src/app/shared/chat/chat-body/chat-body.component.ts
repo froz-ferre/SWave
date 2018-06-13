@@ -17,9 +17,7 @@ messages;
 
   constructor(private activatedRoute: ActivatedRoute,
               protected chatService: ChatService) {
-    activatedRoute.params.subscribe(param => {
-      this.thread = param['threadId'];
-});
+    this.thread = activatedRoute.snapshot.params.threadId;
   }
 
   ngOnInit() {
@@ -30,13 +28,13 @@ messages;
     this.chatService.getMessages(thread).subscribe(
       msg => {
         this.messages = msg;
-        console.log(msg);
       }
     );
   }
 
-  sendMsg(text: string) {
-    this.chatService.sendMessage(text, this.thread);
+  sendMsg(text) {
+    this.chatService.sendMessage(text.value, this.thread);
+    text.value = '';
   }
 
 }
