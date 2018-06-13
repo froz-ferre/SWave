@@ -1,5 +1,7 @@
-import { ChatService } from './../services/chat.service';
+import { ChatService, User } from './../services/chat.service';
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -8,12 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
+  auth;
+  users;
+
   constructor(protected _chatService: ChatService) {
+
   }
 
   ngOnInit() {
-    this._chatService.someMeth().subscribe(
-      res => console.log(res)
+
+    this._chatService.getAuth().pipe(map(res => res.uid)).subscribe(
+      res => this.auth = res
+    );
+
+    this._chatService.getUsers().subscribe(
+      res => {
+        this.users = res.filter((user: User) => user.uid !== this.auth);
+        // console.log(res);
+      }
     );
   }
 

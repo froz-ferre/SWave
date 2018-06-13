@@ -11,6 +11,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ChatComponent } from './chat/chat.component';
 import { RouterModule } from '@angular/router';
 import { ChatService } from './services/chat.service';
+import { ChatBodyComponent } from './chat/chat-body/chat-body.component';
 
 @NgModule({
   imports: [
@@ -27,12 +28,14 @@ import { ChatService } from './services/chat.service';
   ],
   declarations: [
     MenuComponent,
-    ChatComponent
+    ChatComponent,
+    ChatBodyComponent
   ],
   exports: [
     MaterialModule,
     MenuComponent,
     ChatComponent,
+    ChatBodyComponent,
     BrowserAnimationsModule
   ]
 })

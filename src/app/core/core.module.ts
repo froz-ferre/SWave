@@ -18,6 +18,14 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ChatComponent } from '../shared/chat/chat.component';
+import { ChatBodyComponent } from '../shared/chat/chat-body/chat-body.component';
+
+const chatRoutes: Routes = [
+  {
+    path: 'thread/:threadId',
+    component: ChatBodyComponent
+  }
+];
 
 const routes: Routes = [
   {
@@ -35,7 +43,8 @@ const routes: Routes = [
   },
   {
     path: 'direct',
-    component: ChatComponent
+    component: ChatComponent,
+    children: chatRoutes
   }
 ];
 
