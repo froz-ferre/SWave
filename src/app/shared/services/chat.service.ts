@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 export interface User {
@@ -24,7 +25,8 @@ export class ChatService {
   thread;
 
   constructor(private afAuth: AngularFireAuth,
-              private afs: AngularFirestore) {
+              private afs: AngularFirestore,
+              private router: Router) {
     this.getAuth().subscribe( auth => this.auth = auth);
     this.itemsCollection = afs.collection('conversations');
     this.conversations = this.itemsCollection.snapshotChanges().pipe(map(changes => {
@@ -36,11 +38,6 @@ export class ChatService {
     })
     );
   }
-
-  // someMeth() {
-  //   this.itemsCollection = this.afs.collection<any>('conversations');
-  //   return this.itemsCollection.valueChanges();
-  // }
 
   getConversations() {
     return this.conversations;
@@ -55,7 +52,7 @@ export class ChatService {
     }
 
     getMessages(thread: string) {
-      return this.afs.collection(`conversations`).doc(thread).collection('messages').valueChanges();
+      return this.afs.collection(`conversations`).doc(thread).collection('messages', ref => ref.orderBy('createdAt')).valueChanges();
     }
 
     sendMessage(text, thread) {
@@ -73,13 +70,26 @@ export class ChatService {
 
     startDirectThread(otherUserId) {
       // получаем айдишник того, с кем хотим потрепаться.
-      // Идем на сервак, смотрим существующие потоки
-      // Если находим поток с айдишником чувака и текущей сессии
-      // то возвращаем поток и редиректим на него
-      // Иначе создаем такой поток, возвращаем его и, соответственно, редиректим
-      return this.conversations.pipe(take(1), map((res: Array<any>) => {
-        // tslint:disable-next-line:no-unused-expression
-        res.find(el => el.uid.indexOf(otherUserId) !== -1 && el.uid.indexOf(this.auth.id) !== -1).id;
-      }));
+      // Идем на сервак, смотрим существующие потокu
+
+      this.conversations.pipe(map((res: Array<any>) => {
+        this.thread = res.filter(el => el.uid.indexOf(this.auth.uid) !== -1 && el.uid.indexOf(otherUserId) !== -1);
+      }), take(1)).subscribe(
+        {
+          complete: () => {
+          // Если находим поток с айдишником чувака и текущей сессии
+          if (this.thread.length !== 0) {
+          // то возвращаем поток и редиректим на него
+            this.router.navigate([`/direct/thread/${this.thread[0].id}`]);
+          } else {
+            // Иначе создаем такой поток, возвращаем его и, соответственно, редиректим
+            this.afs.collection('conversations').add({
+              uid: [this.auth.uid, otherUserId]
+            });
+          }
+
+          }
+        }
+      );
     }
 }

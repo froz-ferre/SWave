@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
 import { Input } from '@angular/core';
 
@@ -16,8 +16,12 @@ messages;
 @Input('text') text;
 
   constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
               protected chatService: ChatService) {
-    this.thread = activatedRoute.snapshot.params.threadId;
+    activatedRoute.params.subscribe(param => {
+      this.thread = param['threadId'];
+      this.getMessages(this.thread);
+    });
   }
 
   ngOnInit() {
@@ -27,7 +31,7 @@ messages;
   getMessages(thread: string) {
     this.chatService.getMessages(thread).subscribe(
       msg => {
-        this.messages = msg.sort();
+        this.messages = msg;
       }
     );
   }

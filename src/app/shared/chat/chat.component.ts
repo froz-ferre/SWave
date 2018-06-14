@@ -34,16 +34,7 @@ export class ChatComponent implements OnInit {
   }
 
   startThread(otherUserId) {
-    // this._chatService.getConversations().subscribe(res => {
-    //   res.forEach(el => {
-    //     if (el.uid.indexOf(otherUserId) !== -1 && el.uid.indexOf(this.auth) !== -1) {
-    //       this.conv = el.id;
-    //     }
-    //   });
-    // });
-    this._chatService.startDirectThread(otherUserId).subscribe(
-      res => console.log(res)
-    );
+    this._chatService.startDirectThread(otherUserId);
   }
 
 }

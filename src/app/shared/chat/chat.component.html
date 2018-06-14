@@ -1,5 +1,6 @@
 <p></p>
 <ul style="float: right;">
+  <li [routerLink]="['/direct/thread/common']"><h2>Common</h2></li>
   <li *ngFor="let user of users" (click)="startThread(user.uid)">
     <p>{{user.displayName || user.email}}</p>
     <img src="{{user.photoURL}}" alt="" style="width: 50px;">
