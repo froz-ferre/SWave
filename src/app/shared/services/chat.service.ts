@@ -77,30 +77,9 @@ export class ChatService {
       // Если находим поток с айдишником чувака и текущей сессии
       // то возвращаем поток и редиректим на него
       // Иначе создаем такой поток, возвращаем его и, соответственно, редиректим
-      this.conversations.subscribe(
-        res => {
-          res.forEach(el => {
-            if (el.uid.indexOf('3') !== -1 && el.uid.indexOf('1') !== -1) {
-              this.thread = el.id;
-            }
-          });
-        },
-        () => {},
-        () => {
-          return this.thread;
-        }
-      );
-      /*
-        (3) […]
-          0: {…}
-          uid: Array [ "1", "3" ]
-          __proto__: Object { … }
-          1: Object {  }
-          2: {…}
-          uid: Array [ "3", "1" ]
-          __proto__: Object { … }
-          length: 3
-          __proto__: Array []
-      */
+      return this.conversations.pipe(map(res => {
+        // tslint:disable-next-line:no-unused-expression
+        res.find(el => el.uid.indexOf(otherUserId) !== -1 && el.uid.indexOf(this.auth.id) !== -1).id;
+      }));
     }
 }

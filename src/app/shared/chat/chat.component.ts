@@ -34,21 +34,14 @@ export class ChatComponent implements OnInit {
   }
 
   startThread(otherUserId) {
-    console.log('clicked ' + otherUserId);
-    this._chatService.getConversations().subscribe(res => {
-      res.forEach(el => {
-        if (el.uid.indexOf(otherUserId) !== -1 && el.uid.indexOf(this.auth) !== -1) {
-          this.conv = el.id;
-          console.log(this.conv);
-          this._router.navigate(['/', this.conv]);
-        }
-      });
-    },
-    err => console.log(err),
-    () => {
-      console.log(this.conv || 'oops');
-    }
-  );
+    // this._chatService.getConversations().subscribe(res => {
+    //   res.forEach(el => {
+    //     if (el.uid.indexOf(otherUserId) !== -1 && el.uid.indexOf(this.auth) !== -1) {
+    //       this.conv = el.id;
+    //     }
+    //   });
+    // });
+    this._chatService.startDirectThread(otherUserId);
   }
 
 }
