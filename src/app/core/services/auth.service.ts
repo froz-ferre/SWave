@@ -64,10 +64,10 @@ export class AuthService {
     .then((credential) => {
       this.updateUserData(credential.user);
      })
-      // .then(user => {
-      //   return this.setUserDoc(user.uid); // create initial user document
-      // })
-      .catch(error => this.handleError(error) );
+      .catch(
+      //  Проверять пароль
+        error => this.handleError(error) 
+      );
   }
 
   private oAuthLogin(provider) {

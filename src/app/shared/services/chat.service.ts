@@ -51,4 +51,25 @@ export class ChatService {
         }
       });
     }
+
+    startDirectThread(otherUserId) {
+      // получаем айдишник того, с кем хотим потрепаться.
+      // Идем на сервак, смотрим существующие потоки
+      // Если находим поток с айдишником чувака и текущей сессии 
+      // то возвращаем поток и редиректим на него
+      // // Иначе создаем такой поток, возвращаем его и, соответственно, редиректим
+      return this.afs.collection('conversations').valueChanges();
+      /*
+        (3) […]
+          0: {…}
+          uid: Array [ "1", "3" ]
+          __proto__: Object { … }
+          1: Object {  }
+          2: {…}
+          uid: Array [ "3", "1" ]
+          __proto__: Object { … }
+          length: 3
+          __proto__: Array []
+      */
+    }
 }

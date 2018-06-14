@@ -31,4 +31,10 @@ export class ChatComponent implements OnInit {
     );
   }
 
+  startThread(otherUserId) {
+    this._chatService.startDirectThread(otherUserId).subscribe(
+      res => console.log(res)
+    );
+  }
+
 }

@@ -27,7 +27,7 @@ messages;
   getMessages(thread: string) {
     this.chatService.getMessages(thread).subscribe(
       msg => {
-        this.messages = msg;
+        this.messages = msg.sort();
       }
     );
   }
