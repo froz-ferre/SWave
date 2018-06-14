@@ -84,9 +84,12 @@ export class ChatService {
               this.thread = el.id;
             }
           });
+        },
+        () => {},
+        () => {
+          return this.thread;
         }
       );
-      return this.thread;
       /*
         (3) […]
           0: {…}

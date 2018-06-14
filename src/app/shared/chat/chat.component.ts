@@ -1,7 +1,7 @@
 import { ChatService, User } from './../services/chat.service';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -14,19 +14,12 @@ export class ChatComponent implements OnInit {
   users;
   conv;
 
-  constructor(protected _chatService: ChatService) {
+  constructor(protected _chatService: ChatService,
+              private _router: Router) {
 
   }
 
   ngOnInit() {
-
-    this._chatService.getConversations().subscribe(res => {
-      res.forEach(el => {
-        if (el.uid.indexOf('3') !== -1 && el.uid.indexOf('1') !== -1) {
-          console.log(el.id);
-        }
-      });
-    });
 
     this._chatService.getAuth().pipe(map(res => res.uid)).subscribe(
       res => this.auth = res
@@ -41,8 +34,21 @@ export class ChatComponent implements OnInit {
   }
 
   startThread(otherUserId) {
-    const thr = this._chatService.startDirectThread(otherUserId);
-    console.log('thr' + thr);
+    console.log('clicked ' + otherUserId);
+    this._chatService.getConversations().subscribe(res => {
+      res.forEach(el => {
+        if (el.uid.indexOf(otherUserId) !== -1 && el.uid.indexOf(this.auth) !== -1) {
+          this.conv = el.id;
+          console.log(this.conv);
+          this._router.navigate(['/', this.conv]);
+        }
+      });
+    },
+    err => console.log(err),
+    () => {
+      console.log(this.conv || 'oops');
+    }
+  );
   }
 
 }

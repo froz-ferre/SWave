@@ -21,13 +21,12 @@
   </div>
   <ul>
     <li><a routerLink="/dashboard" routerLinkActive="active">Home</a></li>
-    <li><a href="" routerLinkActive="active">Collection</a></li>
+    <li><a href="" routerLinkActive="active">About</a></li>
     <hr>
     <li><a href="" routerLinkActive="active">Albums</a></li>
     <li><a href="" routerLinkActive="active">Artists</a></li>
     <li><a href="" routerLinkActive="active">Songs</a></li>
     <hr>
-    <li><a href="" routerLink="/direct/thread/common" routerLinkActive="active">Direct</a></li>
     <li>
         <div *ngIf="_as.user | async; then authenticated else guest">
             <!-- template will replace this div -->
@@ -41,10 +40,12 @@
 </ng-template>
 
 <ng-template #authenticated>
+    <li><a href="" routerLink="/user/collections" routerLinkActive="active">Collections</a></li>
+    <li><a href="" routerLink="/direct/thread/common" routerLinkActive="active">Direct</a></li>
     <div *ngIf="_as.user | async as user">
       <h3>Howdy, {{ user.displayName }}</h3>
       <img  [src]="user.photoURL" style="width: 30px;">
-      <p><a href="" routerLink="/auth/profile">Profile</a></p>
+      <p><a href="" routerLink="/user/profile">Profile</a></p>
       <button (click)="_as.signOut()">Logout</button>
     </div>
     </ng-template>
