@@ -1,4 +1,4 @@
-import { filter, switchMap, map } from 'rxjs/operators';
+import { filter, switchMap, map, take, find } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -77,7 +77,7 @@ export class ChatService {
       // Если находим поток с айдишником чувака и текущей сессии
       // то возвращаем поток и редиректим на него
       // Иначе создаем такой поток, возвращаем его и, соответственно, редиректим
-      return this.conversations.pipe(map(res => {
+      return this.conversations.pipe(take(1), map((res: Array<any>) => {
         // tslint:disable-next-line:no-unused-expression
         res.find(el => el.uid.indexOf(otherUserId) !== -1 && el.uid.indexOf(this.auth.id) !== -1).id;
       }));

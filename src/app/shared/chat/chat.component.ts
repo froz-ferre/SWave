@@ -41,7 +41,9 @@ export class ChatComponent implements OnInit {
     //     }
     //   });
     // });
-    this._chatService.startDirectThread(otherUserId);
+    this._chatService.startDirectThread(otherUserId).subscribe(
+      res => console.log(res)
+    );
   }
 
 }
