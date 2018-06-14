@@ -12,12 +12,21 @@ export class ChatComponent implements OnInit {
 
   auth;
   users;
+  conv;
 
   constructor(protected _chatService: ChatService) {
 
   }
 
   ngOnInit() {
+
+    this._chatService.getConversations().subscribe(res => {
+      res.forEach(el => {
+        if (el.uid.indexOf('3') !== -1 && el.uid.indexOf('1') !== -1) {
+          console.log(el.id);
+        }
+      });
+    });
 
     this._chatService.getAuth().pipe(map(res => res.uid)).subscribe(
       res => this.auth = res
@@ -32,9 +41,8 @@ export class ChatComponent implements OnInit {
   }
 
   startThread(otherUserId) {
-    this._chatService.startDirectThread(otherUserId).subscribe(
-      res => console.log(res)
-    );
+    const thr = this._chatService.startDirectThread(otherUserId);
+    console.log('thr' + thr);
   }
 
 }

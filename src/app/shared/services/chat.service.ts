@@ -4,8 +4,13 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 
+
 export interface User {
   uid: string;
+}
+
+export interface Thread {
+  uid: Array<any>;
 }
 
 @Injectable()
@@ -16,16 +21,30 @@ export class ChatService {
 
   public users;
   auth;
+  thread;
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore) {
     this.getAuth().subscribe( auth => this.auth = auth);
+    this.itemsCollection = afs.collection('conversations');
+    this.conversations = this.itemsCollection.snapshotChanges().pipe(map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data();
+        data.id = a.payload.doc.id;
+        return data;
+      });
+    })
+    );
   }
 
   // someMeth() {
   //   this.itemsCollection = this.afs.collection<any>('conversations');
   //   return this.itemsCollection.valueChanges();
   // }
+
+  getConversations() {
+    return this.conversations;
+  }
 
     getAuth() {
       return this.afAuth.user;
@@ -55,10 +74,19 @@ export class ChatService {
     startDirectThread(otherUserId) {
       // получаем айдишник того, с кем хотим потрепаться.
       // Идем на сервак, смотрим существующие потоки
-      // Если находим поток с айдишником чувака и текущей сессии 
+      // Если находим поток с айдишником чувака и текущей сессии
       // то возвращаем поток и редиректим на него
-      // // Иначе создаем такой поток, возвращаем его и, соответственно, редиректим
-      return this.afs.collection('conversations').valueChanges();
+      // Иначе создаем такой поток, возвращаем его и, соответственно, редиректим
+      this.conversations.subscribe(
+        res => {
+          res.forEach(el => {
+            if (el.uid.indexOf('3') !== -1 && el.uid.indexOf('1') !== -1) {
+              this.thread = el.id;
+            }
+          });
+        }
+      );
+      return this.thread;
       /*
         (3) […]
           0: {…}

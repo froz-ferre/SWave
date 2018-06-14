@@ -1,7 +1,5 @@
-<p>
-  chat works!
-</p>
-<ul>
+<p></p>
+<ul style="float: right;">
   <li *ngFor="let user of users" (click)="startThread(user.uid)">
     <p>{{user.displayName || user.email}}</p>
     <img src="{{user.photoURL}}" alt="" style="width: 50px;">
