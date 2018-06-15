@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
   }
 
   constructor(protected _router: Router,
-              private _as: AuthService) { }
+              public _as: AuthService) { }
 
   ngOnInit() {
   }
