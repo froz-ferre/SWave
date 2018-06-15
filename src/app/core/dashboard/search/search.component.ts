@@ -24,6 +24,4 @@ export class SearchComponent implements OnInit {
     this.lfs.search(text).subscribe(res => this.results = res);
   }
 
-
-
 }

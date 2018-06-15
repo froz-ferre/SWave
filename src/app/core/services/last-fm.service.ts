@@ -26,7 +26,10 @@ export class LastFmService {
    }
 
   search(text): Observable<any> {
-    return this._http.get(`${this.lastFmUrl}?method=track.search&track=${this.validateName(text)}&${this.api_key}&format=json`);
+    return this._http.get(`${this.lastFmUrl}?method=track.search&track=${this.validateName(text)}&${this.api_key}&format=json`)
+    .pipe(map(res => {
+      res.results.trackmatches.track;
+    }));
   }
 
   validateName(name: string) {
