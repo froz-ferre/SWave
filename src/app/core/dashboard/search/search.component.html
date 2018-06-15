@@ -1,3 +1,5 @@
-<p>
-  search works!
-</p>
+ 	
+<input type="text" (keyup)="term$.next($event.target.value)"/>
+<ul>
+  <li *ngFor="let res of results as track">{{track | json}}</li>
+</ul>

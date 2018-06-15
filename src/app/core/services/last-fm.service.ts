@@ -25,6 +25,10 @@ export class LastFmService {
     //  this.str$;
    }
 
+  search(text): Observable<any> {
+    return this._http.get(`${this.lastFmUrl}?method=track.search&track=${this.validateName(text)}&${this.api_key}&format=json`);
+  }
+
   validateName(name: string) {
     // Arctic Monkeys => Arctic+Monkeys
     return name = name.includes(' ') ?  name.split(' ').join('+') : name;

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { LastFmService } from '../../services/last-fm.service';
 
 @Component({
   selector: 'app-search',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  results;
+  term$ = new Subject<string>();
+
+  constructor(private lfs: LastFmService) {
+    this.term$.subscribe(term => this.onSearchType(term));
+  }
 
   ngOnInit() {
   }
+
+  onSearchType(text: string) {
+    this.lfs.search(text).subscribe(res => this.results = res);
+  }
+
+
 
 }
