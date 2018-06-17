@@ -12,6 +12,7 @@ import { ChatComponent } from './chat/chat.component';
 import { RouterModule } from '@angular/router';
 import { ChatService } from './services/chat.service';
 import { ChatBodyComponent } from './chat/chat-body/chat-body.component';
+import { MiniChatComponent } from './chat/mini-chat/mini-chat.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { ChatBodyComponent } from './chat/chat-body/chat-body.component';
   declarations: [
     MenuComponent,
     ChatComponent,
-    ChatBodyComponent
+    ChatBodyComponent,
+    MiniChatComponent
   ],
   exports: [
     MaterialModule,
