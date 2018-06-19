@@ -65,8 +65,8 @@ export class AuthService {
       this.updateUserData(credential.user);
      })
       .catch(
-      //  Проверять пароль
-        error => this.handleError(error) 
+      // Should to check password and logIn if user exist
+        error => this.handleError(error)
       );
   }
 
@@ -80,6 +80,7 @@ export class AuthService {
 
     // If error, console log and notify user
     private handleError(error) {
+      // TODO: Notify user
       console.error(error);
     }
 

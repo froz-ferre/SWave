@@ -1,7 +1,11 @@
-import { ChatService, User } from './../services/chat.service';
+import { ChatService } from './../services/chat.service';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+
+interface User {
+  uid: string;
+}
 
 @Component({
   selector: 'app-chat',

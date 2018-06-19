@@ -5,15 +5,6 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-
-export interface User {
-  uid: string;
-}
-
-export interface Thread {
-  uid: Array<any>;
-}
-
 @Injectable()
 export class ChatService {
 
@@ -39,9 +30,9 @@ export class ChatService {
     );
   }
 
-  getConversations() {
-    return this.conversations;
-  }
+    getConversations() {
+      return this.conversations;
+    }
 
     getAuth() {
       return this.afAuth.user;
@@ -69,20 +60,21 @@ export class ChatService {
     }
 
     startDirectThread(otherUserId) {
-      // получаем айдишник того, с кем хотим потрепаться.
-      // Идем на сервак, смотрим существующие потокu
+      // get uid of other user
+      // go to server and search through exists threads
 
       this.conversations.pipe(map((res: Array<any>) => {
         this.thread = res.filter(el => el.uid.indexOf(this.auth.uid) !== -1 && el.uid.indexOf(otherUserId) !== -1);
       }), take(1)).subscribe(
         {
           complete: () => {
-          // Если находим поток с айдишником чувака и текущей сессии
+          // if thread with our uid and other user uid exist
           if (this.thread.length !== 0) {
-          // то возвращаем поток и редиректим на него
+          // return thread and redirect user to chatroom
             this.router.navigate([`/direct/thread/${this.thread[0].id}`]);
           } else {
-            // Иначе создаем такой поток, возвращаем его и, соответственно, редиректим
+            // else create this thread
+            // (todo) then return thread and redirect user to chatroom
             this.afs.collection('conversations').add({
               uid: [this.auth.uid, otherUserId]
             });
