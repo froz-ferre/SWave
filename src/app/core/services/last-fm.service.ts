@@ -2,13 +2,22 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { map, take, timeInterval, filter } from 'rxjs/operators';
-import { Artist, Track } from './../model/dashboard.model';
+import { Artist, Track, Album } from './../model/dashboard.model';
 import { CoreModule } from '../core.module';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LastFmService {
+
+  // TODO: <-------------------------------------
+  // 1) Делаем запросы к чартам, грузим по 5 объектов.
+  // Если юзверь кликнет "<" или ">" то подгружаем следующую
+  // порцию из 5ти следующих или предидущих объектов.
+  // 2) Раз в 10 секунд грузим рандомный объект с артистом в
+  // диапазоне [1..50]из чарта артистов.
+  // В сервисе подтягиваем для него остальную инфу
+  // (альбомы, треки, описание и все, что понадобится).
 
   chartUrl = 'https://api.deezer.com/chart/tracks';
   lastFmUrl = 'http://ws.audioscrobbler.com/2.0/';
@@ -21,10 +30,6 @@ export class LastFmService {
 
    }
 
-   getData() {
-    //  this.str$;
-   }
-
   search(text): Observable<any> {
     return this._http.get(`${this.lastFmUrl}?method=track.search&track=${this.validateName(text)}&${this.api_key}&format=json`);
   }
@@ -34,27 +39,33 @@ export class LastFmService {
     return name = name.includes(' ') ?  name.split(' ').join('+') : name;
   }
 
-  getChartArtists() {
-    const artistStram$: Observable<any> = this._http.get(`${this.lastFmUrl}?method=chart.gettopartists&${this.api_key}&format=json`)
-    .pipe(
-      map(res => res['artists']['artist']),
-      map(res => {
-        res.forEach(element => {
-          const temp = new Artist(
-              element.name,
-              element.image[2]['#text'],
-              this.getTracks(element.name).pipe(
-                map(arr => arr.slice(0, 4))
-              )
-            );
-            this.artists.push(temp);
-        });
-      })
-    );
-    return artistStram$.subscribe(); // плохо. Надо бы отписаться.
-  }
+  // getChartArtists() {
+  //   const artistStram$: Observable<any> = this._http.get(`${this.lastFmUrl}?method=chart.gettopartists&${this.api_key}&format=json`)
+  //   .pipe(
+  //     map(res => res['artists']['artist']),
+  //     map(res => {
+  //       res.forEach(element => {
+  //         const temp = new Artist(
+  //             element.name,
+  //             element.image[2]['#text'],
+  //             this.getTracks(element.name).pipe(
+  //               map(arr => arr.slice(0, 4))
+  //             )
+  //           );
+  //           this.artists.push(temp);
+  //       });
+  //     })
+  //   );
+  //   return artistStram$.subscribe(); // плохо. Надо бы отписаться.
+  // }
 
-  getArtistInfo(name: string): Observable<any> {
+  getChartArtists(): Observable<Artist[]> { return null; }
+
+  getChartAlbums(): Observable<Album[] > { return null; }
+
+  getCharttracks(): Observable<Track[] > { return null; }
+
+  getArtistInfo(name: string): Observable<any > {
     return this._http.get(`${this.lastFmUrl}?method=artist.getinfo&artist=${this.validateName(name)}&${this.api_key}&format=json`);
   }
 

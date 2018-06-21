@@ -15,13 +15,13 @@ export class DashboardComponent implements OnInit {
   constructor(protected lfs: LastFmService) {   }
 
   ngOnInit() {
-    this.getChartArtists();
+    // this.getChartArtists();
     this.api = this.lfs.artists;
   }
 
-  getChartArtists() {
-    this.lfs.getChartArtists();
-  }
+  // getChartArtists() {
+  //   this.lfs.getChartArtists();
+  // }
 
   getTrack(name) {
     this.lfs.getTracks(name).subscribe(tr => this.api[0].tracks.push(tr));
