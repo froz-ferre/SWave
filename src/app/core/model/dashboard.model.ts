@@ -1,5 +1,3 @@
-import { LastFmService } from '../services/last-fm.service';
-
 export class Artist {
     static chartArtists: Artist[] = [];
 
