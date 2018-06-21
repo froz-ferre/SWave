@@ -29,7 +29,7 @@ export class LastFmService {
     return this._http.get(`${this.lastFmUrl}?method=track.search&track=${this.validateName(text)}&${this.api_key}&format=json`);
   }
 
-  validateName(name: string) {
+  validateName(name: string): string {
     // Arctic Monkeys => Arctic+Monkeys
     return name = name.includes(' ') ?  name.split(' ').join('+') : name;
   }
@@ -42,7 +42,7 @@ export class LastFmService {
         res.forEach(element => {
           const temp = new Artist(
               element.name,
-              element.image[3]['#text'],
+              element.image[2]['#text'],
               this.getTracks(element.name).pipe(
                 map(arr => arr.slice(0, 4))
               )
@@ -51,7 +51,7 @@ export class LastFmService {
         });
       })
     );
-    return artistStram$.subscribe();
+    return artistStram$.subscribe(); // плохо. Надо бы отписаться.
   }
 
   getArtistInfo(name: string): Observable<any> {
