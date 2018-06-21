@@ -74,10 +74,11 @@ export class ChatService {
             this.router.navigate([`/direct/thread/${this.thread[0].id}`]);
           } else {
             // else create this thread
-            // (todo) then return thread and redirect user to chatroom
             this.afs.collection('conversations').add({
               uid: [this.auth.uid, otherUserId]
-            });
+            }) // then return thread and redirect user to chatroom
+            .then(docRef => this.router.navigate([`/direct/thread/${docRef.id}`]))
+            .catch(err => console.log(err));
           }
 
           }
