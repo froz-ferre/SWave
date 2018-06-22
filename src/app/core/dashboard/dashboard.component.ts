@@ -16,15 +16,17 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     // this.getChartArtists();
-    this.api = this.lfs.artists;
+    this.lfs.getChartArtists().subscribe(
+      res => console.log(res)
+    );
   }
 
   // getChartArtists() {
   //   this.lfs.getChartArtists();
   // }
 
-  getTrack(name) {
-    this.lfs.getTracks(name).subscribe(tr => this.api[0].tracks.push(tr));
-  }
+  // getTrack(name) {
+  //   this.lfs.getTracks(name).subscribe(tr => this.api[0].tracks.push(tr));
+  // }
 
 }
