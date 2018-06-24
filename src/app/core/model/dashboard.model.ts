@@ -31,8 +31,9 @@ export class Artist {
   }
 
   export class Track {
-    private name;
-    constructor(name) { this.name = name; }
+    constructor(private name,
+                private img,
+                private artist) { }
   }
 
   export class Album { }

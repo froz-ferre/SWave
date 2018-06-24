@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LastFmService } from '../services/last-fm.service';
-import { Artist, Album } from '../model/dashboard.model';
+import { Artist, Album, Track } from '../model/dashboard.model';
 
 
 @Component({
@@ -11,20 +11,22 @@ import { Artist, Album } from '../model/dashboard.model';
 export class DashboardComponent implements OnInit {
 
   chartArtists: Artist[] = [];
-  chartAlbums: Album[] = [];
+  chartTracks: Track[] = [];
 
   artistsPage: number;
-  albumsPage: number;
   tracksPage: number;
 
   constructor(protected lfs: LastFmService) {
       this.artistsPage = 1;
+      this.tracksPage = 1;
    }
 
   ngOnInit() {
-    // this.getChartArtists();
     this.lfs.getChartArtists(this.artistsPage).subscribe(
       artists => this.chartArtists = artists
+    );
+    this.lfs.getChartTracks(this.tracksPage).subscribe(
+      tracks => this.chartTracks = tracks
     );
   }
 
@@ -44,18 +46,18 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  showNextAlbumsSlide(addPage: number) {
-    this.albumsPage += addPage;
-    if (this.albumsPage < 1) {
-      this.albumsPage = 9;
-    } else if (this.albumsPage > 9) {
-      this.albumsPage = 1;
+  showNextTracksSlide(addPage: number) {
+    this.tracksPage += addPage;
+    if (this.tracksPage < 1) {
+      this.tracksPage = 9;
+    } else if (this.tracksPage > 9) {
+      this.tracksPage = 1;
     }
-    console.log('next ' + this.albumsPage);
-    this.lfs.getChartAlbums(this.albumsPage).subscribe(
+    console.log('next ' + this.tracksPage);
+    this.lfs.getChartTracks(this.tracksPage).subscribe(
       artists => {
 
-        this.chartAlbums = artists;
+        this.chartTracks = artists;
       }
     );
   }

@@ -40,28 +40,13 @@ export class LastFmService {
     return name = name.includes(' ') ?  name.split(' ').join('+') : name;
   }
 
-  // getChartArtists() {
-  //   const artistStram$: Observable<any> = this._http.get(`${this.lastFmUrl}?method=chart.gettopartists&${this.api_key}&format=json`)
-  //   .pipe(
-  //     map(res => res['artists']['artist']),
-  //     map(res => {
-  //       res.forEach(element => {
-  //         const temp = new Artist(
-  //             element.name,
-  //             element.image[2]['#text'],
-  //             this.getTracks(element.name).pipe(
-  //               map(arr => arr.slice(0, 4))
-  //             )
-  //           );
-  //           this.artists.push(temp);
-  //       });
-  //     })
-  //   );
-  //   return artistStram$.subscribe(); // плохо. Надо бы отписаться.
-  // }
+  /* TODO:
+    Last FM криво отдает данные и вместо запрашиваемой порции из
+    пяти объектов выплевывает полотно, посему нужно изменить лоику
+    запросов или брать АПИ с другого сервиса
+  */
 
   getChartArtists(page: number): Observable<Artist[]> {
-
     return this._http.get<any>(`${this.lastFmUrl}?method=chart.gettopartists&limit=5&page=${page}&${this.api_key}&format=json`)
                .pipe(map(responce => responce.artists.artist),
                      map(res => res.map(el => el = {name: el.name,
@@ -72,7 +57,15 @@ export class LastFmService {
 
   getChartAlbums(page: number): Observable<Album[] > { return null; }
 
-  getChartTracks(page: number): Observable<Track[] > { return null; }
+  getChartTracks(page: number): Observable<Track[] > {
+    return this._http.get<any>(`${this.lastFmUrl}?method=chart.gettoptracks&limit=5&page=${page}&${this.api_key}&format=json`)
+    .pipe(map(responce => responce.tracks.track),
+          map(res => res.map(el => el = {name: el.name,
+                                         img:  el.image[2]['#text'],
+                                         artist: el.artist.name})
+          )
+    );
+  }
 
   getArtistInfo(name: string): Observable<any > {
     return this._http.get(`${this.lastFmUrl}?method=artist.getinfo&artist=${this.validateName(name)}&${this.api_key}&format=json`);

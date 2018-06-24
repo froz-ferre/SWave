@@ -20,8 +20,5 @@
     <app-chart [items]="chartArtists" (showNextSlide)="showNextArtistsSlide($event)"></app-chart>
 </div>
 <div>
-    <app-chart (showNextSlide)="showNextAlbumsSlide($event)"></app-chart>    
-</div>
-<div>
-    <app-chart></app-chart>    
+    <app-chart [items]="chartTracks" (showNextSlide)="showNextTracksSlide($event)"></app-chart>    
 </div>
