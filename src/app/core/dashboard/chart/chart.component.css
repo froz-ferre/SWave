@@ -1,0 +1,29 @@
+.slide {
+    width: 70%;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    display: inline-block;
+}
+
+.prev, .next {  
+    display: inline-block;
+    cursor: pointer;
+    width: 75px;
+    height: 75px;
+    transition: .5s;
+    border-left: 2px solid rgba(255, 255, 255, .3);
+    border-bottom: 2px solid rgba(255, 255, 255, .3);
+}
+
+.prev {
+    transform: rotate(45deg);
+}
+
+.next {
+    transform: rotate(225deg);
+}
+
+.prev:hover, .next:hover {
+    border-left: 2px solid rgba(7, 234, 250);
+    border-bottom: 2px solid rgba(7, 234, 250);
+}

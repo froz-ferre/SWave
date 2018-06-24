@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Artist } from '../../model/dashboard.model';
+import { Input } from '@angular/core';
+import { Output } from '@angular/core';
 
 @Component({
   selector: 'app-chart',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChartComponent implements OnInit {
 
+  @Input() items: Artist[];
+
+  @Output() showNextSlide = new EventEmitter<number>();
+  showNext(addPage: number) {
+    this.showNextSlide.emit(addPage);
+  }
+
   constructor() { }
 
   ngOnInit() {
   }
+
+
 
 }

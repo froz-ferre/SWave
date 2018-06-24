@@ -10,14 +10,33 @@ import { Artist } from '../model/dashboard.model';
 })
 export class DashboardComponent implements OnInit {
 
-  api: Artist[];
+  chartArtists: Artist[] = [];
+  artistsPage: number;
 
-  constructor(protected lfs: LastFmService) {   }
+  constructor(protected lfs: LastFmService) {
+      this.artistsPage = 1;
+   }
 
   ngOnInit() {
     // this.getChartArtists();
-    this.lfs.getChartArtists().subscribe(
-      res => console.log(res)
+    this.lfs.getChartArtists(this.artistsPage).subscribe(
+      artists => this.chartArtists = artists
+    );
+  }
+
+  showNextSlide(addPage: number) {
+    this.artistsPage += addPage;
+    if (this.artistsPage < 1) {
+      this.artistsPage = 9;
+    } else if (this.artistsPage > 9) {
+      this.artistsPage = 1;
+    }
+    console.log('next ' + this.artistsPage);
+    this.lfs.getChartArtists(this.artistsPage).subscribe(
+      artists => {
+
+        this.chartArtists = artists;
+      }
     );
   }
 

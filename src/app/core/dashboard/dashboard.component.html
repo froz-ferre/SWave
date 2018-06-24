@@ -15,13 +15,13 @@
         <app-top-artist></app-top-artist>
         <app-top-artis-tracks></app-top-artis-tracks>        
     </div>
-    <div class="row">
-        <app-chart></app-chart>
-    </div>
-    <div class="row">
-        <app-chart></app-chart>    
-    </div>
-    <div class="row">
-        <app-chart></app-chart>    
-    </div>
+</div>
+<div>
+    <app-chart [items]="chartArtists" (showNextSlide)="showNextSlide($event)"></app-chart>
+</div>
+<div>
+    <app-chart></app-chart>    
+</div>
+<div>
+    <app-chart></app-chart>    
 </div>

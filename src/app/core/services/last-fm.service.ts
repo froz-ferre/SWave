@@ -60,8 +60,9 @@ export class LastFmService {
   //   return artistStram$.subscribe(); // плохо. Надо бы отписаться.
   // }
 
-  getChartArtists(): Observable<Artist[]> {
-    return this._http.get<any>(`${this.lastFmUrl}?method=chart.gettopartists&limit=5&page=1&${this.api_key}&format=json`)
+  getChartArtists(page: number): Observable<Artist[]> {
+
+    return this._http.get<any>(`${this.lastFmUrl}?method=chart.gettopartists&limit=5&page=${page}&${this.api_key}&format=json`)
                .pipe(map(responce => responce.artists.artist),
                      map(res => res.map(el => el = {name: el.name,
                                                     img:  el.image[2]['#text']})
