@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LastFmService } from '../services/last-fm.service';
-import { Artist } from '../model/dashboard.model';
+import { Artist, Album } from '../model/dashboard.model';
 
 
 @Component({
@@ -11,7 +11,11 @@ import { Artist } from '../model/dashboard.model';
 export class DashboardComponent implements OnInit {
 
   chartArtists: Artist[] = [];
+  chartAlbums: Album[] = [];
+
   artistsPage: number;
+  albumsPage: number;
+  tracksPage: number;
 
   constructor(protected lfs: LastFmService) {
       this.artistsPage = 1;
@@ -24,7 +28,7 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  showNextSlide(addPage: number) {
+  showNextArtistsSlide(addPage: number) {
     this.artistsPage += addPage;
     if (this.artistsPage < 1) {
       this.artistsPage = 9;
@@ -36,6 +40,22 @@ export class DashboardComponent implements OnInit {
       artists => {
 
         this.chartArtists = artists;
+      }
+    );
+  }
+
+  showNextAlbumsSlide(addPage: number) {
+    this.albumsPage += addPage;
+    if (this.albumsPage < 1) {
+      this.albumsPage = 9;
+    } else if (this.albumsPage > 9) {
+      this.albumsPage = 1;
+    }
+    console.log('next ' + this.albumsPage);
+    this.lfs.getChartAlbums(this.albumsPage).subscribe(
+      artists => {
+
+        this.chartAlbums = artists;
       }
     );
   }

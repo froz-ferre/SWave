@@ -17,10 +17,10 @@
     </div>
 </div>
 <div>
-    <app-chart [items]="chartArtists" (showNextSlide)="showNextSlide($event)"></app-chart>
+    <app-chart [items]="chartArtists" (showNextSlide)="showNextArtistsSlide($event)"></app-chart>
 </div>
 <div>
-    <app-chart></app-chart>    
+    <app-chart (showNextSlide)="showNextAlbumsSlide($event)"></app-chart>    
 </div>
 <div>
     <app-chart></app-chart>    

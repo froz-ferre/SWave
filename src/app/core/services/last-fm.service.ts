@@ -70,9 +70,9 @@ export class LastFmService {
                );
   }
 
-  getChartAlbums(): Observable<Album[] > { return null; }
+  getChartAlbums(page: number): Observable<Album[] > { return null; }
 
-  getCharttracks(): Observable<Track[] > { return null; }
+  getChartTracks(page: number): Observable<Track[] > { return null; }
 
   getArtistInfo(name: string): Observable<any > {
     return this._http.get(`${this.lastFmUrl}?method=artist.getinfo&artist=${this.validateName(name)}&${this.api_key}&format=json`);
