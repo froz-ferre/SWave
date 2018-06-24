@@ -1,7 +1,8 @@
+import { element } from 'protractor';
 import { Injectable, Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { map, take, timeInterval, filter } from 'rxjs/operators';
+import { map, take, timeInterval, filter, every } from 'rxjs/operators';
 import { Artist, Track, Album } from './../model/dashboard.model';
 import { CoreModule } from '../core.module';
 
@@ -61,7 +62,11 @@ export class LastFmService {
 
   getChartArtists(): Observable<Artist[]> {
     return this._http.get<any>(`${this.lastFmUrl}?method=chart.gettopartists&limit=5&page=1&${this.api_key}&format=json`)
-               .pipe(map(responce => responce.artists.artist));
+               .pipe(map(responce => responce.artists.artist),
+                     map(res => res.map(el => el = {name: el.name,
+                                                    img:  el.image[2]['#text']})
+                     )
+               );
   }
 
   getChartAlbums(): Observable<Album[] > { return null; }

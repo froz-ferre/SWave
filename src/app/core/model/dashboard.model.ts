@@ -3,9 +3,9 @@ export class Artist {
 
     private name: string;
     private img: string;
-    public tracks: any;
+    public tracks?: any;
 
-    constructor(name: string, img: string, tracks) {
+    constructor(name: string, img: string, tracks?) {
       this.name = name;
       this.img = img;
       this.tracks = tracks;
@@ -16,7 +16,7 @@ export class Artist {
     //     this._lastFmService.getChartArtists();
     // }
 
-    getName() {return this.name;}
+    getName() { return this.name; }
 
     getTracks(name) {
       /*  */
@@ -32,7 +32,7 @@ export class Artist {
 
   export class Track {
     private name;
-    constructor(name) {this.name = name;}
+    constructor(name) { this.name = name; }
   }
 
-  export class Album {}
+  export class Album { }
